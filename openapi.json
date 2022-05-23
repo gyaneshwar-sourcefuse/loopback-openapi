@@ -1,0 +1,558 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "loopback-rest-connector",
+    "version": "0.0.1",
+    "description": "training",
+    "contact": {}
+  },
+  "paths": {
+    "/ping": {
+      "get": {
+        "x-controller-name": "PingController",
+        "x-operation-name": "ping",
+        "tags": [
+          "PingController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ping Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PingResponse"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "PingController.ping"
+      }
+    },
+    "/users/{id}": {
+      "patch": {
+        "x-controller-name": "UsersController",
+        "x-operation-name": "updateById",
+        "tags": [
+          "UsersController"
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "User update"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsersPartial"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "UsersController.updateById"
+      },
+      "get": {
+        "x-controller-name": "UsersController",
+        "x-operation-name": "findById",
+        "tags": [
+          "UsersController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Find one user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsersWithRelations"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users.Filter"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "UsersController.findById"
+      },
+      "delete": {
+        "x-controller-name": "UsersController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "UsersController"
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "User delete"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "UsersController.deleteById"
+      }
+    },
+    "/users": {
+      "post": {
+        "x-controller-name": "UsersController",
+        "x-operation-name": "create",
+        "tags": [
+          "UsersController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Create new user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsersExcluding_id_"
+              }
+            }
+          }
+        },
+        "operationId": "UsersController.create"
+      },
+      "get": {
+        "x-controller-name": "UsersController",
+        "x-operation-name": "find",
+        "tags": [
+          "UsersController"
+        ],
+        "responses": {
+          "description": "Array of users",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/UsersWithRelations",
+                  "definitions": {
+                    "UsersWithRelations": {
+                      "$ref": "#/components/schemas/UsersWithRelations"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users.Filter1"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "UsersController.find"
+      },
+      "delete": {
+        "x-controller-name": "UsersController",
+        "x-operation-name": "deleteAll",
+        "tags": [
+          "UsersController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete all users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "UsersController.deleteAll"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Users": {
+        "title": "Users",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "role"
+        ],
+        "additionalProperties": false
+      },
+      "UsersExcluding_id_": {
+        "title": "UsersExcluding_id_",
+        "type": "object",
+        "description": "(tsType: Omit<Users, 'id'>, schemaOptions: { exclude: [ 'id' ] })",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "role"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "Omit<Users, 'id'>"
+      },
+      "UsersWithRelations": {
+        "title": "UsersWithRelations",
+        "type": "object",
+        "description": "(tsType: UsersWithRelations, schemaOptions: { includeRelations: true })",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "role"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "UsersWithRelations"
+      },
+      "UsersPartial": {
+        "title": "UsersPartial",
+        "type": "object",
+        "description": "(tsType: Partial<Users>, schemaOptions: { partial: true })",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "Partial<Users>"
+      },
+      "PingResponse": {
+        "type": "object",
+        "title": "PingResponse",
+        "properties": {
+          "greeting": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "headers": {
+            "type": "object",
+            "properties": {
+              "Content-Type": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "Users.Filter": {
+        "type": "object",
+        "title": "Users.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "type": "boolean"
+                  },
+                  "email": {
+                    "type": "boolean"
+                  },
+                  "role": {
+                    "type": "boolean"
+                  },
+                  "createdAt": {
+                    "type": "boolean"
+                  },
+                  "updatedAt": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "id",
+                    "name",
+                    "email",
+                    "role",
+                    "createdAt",
+                    "updatedAt"
+                  ],
+                  "example": "id"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "Users.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Users>"
+      },
+      "Users.Filter1": {
+        "type": "object",
+        "title": "Users.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "where": {
+            "title": "Users.WhereFilter",
+            "type": "object",
+            "additionalProperties": true
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "type": "boolean"
+                  },
+                  "email": {
+                    "type": "boolean"
+                  },
+                  "role": {
+                    "type": "boolean"
+                  },
+                  "createdAt": {
+                    "type": "boolean"
+                  },
+                  "updatedAt": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "id",
+                    "name",
+                    "email",
+                    "role",
+                    "createdAt",
+                    "updatedAt"
+                  ],
+                  "example": "id"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "Users.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Users>"
+      }
+    }
+  }
+}
