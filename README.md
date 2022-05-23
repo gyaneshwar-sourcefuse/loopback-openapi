@@ -1,4 +1,12 @@
-# loopback-rest-connector
+# Loopback4 Rest & Open API Connector
+
+## Topics
+
+- REST Connector
+- OpenAPI Connector
+- Integration Test Cases
+
+----
 
 This application is generated using [LoopBack 4 CLI](https://loopback.io/doc/en/lb4/Command-line-interface.html) with the
 [initial project layout](https://loopback.io/doc/en/lb4/Loopback-application-layout.html).
