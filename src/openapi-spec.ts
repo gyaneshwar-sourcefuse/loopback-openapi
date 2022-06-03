@@ -12,13 +12,15 @@ async function exportOpenApiSpec(): Promise<void> {
       openApiSpec: {
         // useful when used with OpenAPI-to-GraphQL to locate your application
         setServersFromRequest: false,
-        servers: [{
-          url: 'http://localhost:3000'
-        }],
+        servers: [
+          {
+            url: '/',
+          },
+        ],
         endpointMapping: {
-          'openapi.json': {version: '3.0.0', format: 'json'}
-        }
-      }
+          'openapi.json': {version: '3.0.0', format: 'json'},
+        },
+      },
     },
   };
   const outFile = process.argv[2] ?? '';
