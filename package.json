@@ -1,5 +1,5 @@
 {
-  "name": "loopback-rest-connector",
+  "name": "loopback-openapi",
   "version": "0.0.1",
   "description": "training",
   "keywords": [
@@ -25,8 +25,8 @@
     "test": "lb-mocha --recursive --allow-console-logs \"dist/__tests__\"",
     "posttest": "npm run lint",
     "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
-    "docker:build": "docker build -t loopback-rest-connector .",
-    "docker:run": "docker run -p 3000:3000 -d loopback-rest-connector",
+    "docker:build": "docker build -t loopback-openapi .",
+    "docker:run": "docker run -p 3001:3001 -d loopback-openapi",
     "premigrate": "npm run build",
     "migrate": "node ./dist/migrate",
     "preopenapi-spec": "npm run build",
